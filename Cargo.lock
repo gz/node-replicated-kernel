@@ -116,11 +116,11 @@ dependencies = [
 [[package]]
 name = "atopology"
 version = "0.0.17"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "066352905145f3e426556fc8ec16e781296427436573123f3f488ca9b9372adb"
+source = "git+https://github.com/gz/rust-topology.git?branch=pmem#a186f2f1c7a975ff9242faac5001fd46ae1707c2"
 dependencies = [
+ "bitflags",
  "cstr_core",
- "env_logger 0.8.3",
+ "env_logger 0.9.0",
  "lazy_static",
  "libacpica",
  "log",
@@ -476,6 +476,19 @@ name = "env_logger"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "17392a012ea30ef05a610aa97dfb49496e71c9f676b27879922ea5bdf60d9d3f"
+dependencies = [
+ "atty",
+ "humantime 2.1.0",
+ "log",
+ "regex",
+ "termcolor",
+]
+
+[[package]]
+name = "env_logger"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b2cf0344971ee6c64c31be0d530793fba457d322dfec2810c453d0ef228f9c3"
 dependencies = [
  "atty",
  "humantime 2.1.0",
@@ -975,7 +988,7 @@ dependencies = [
  "ctor",
  "driverkit",
  "elfloader",
- "env_logger 0.8.3",
+ "env_logger 0.9.0",
  "fallible_collections",
  "gimli 0.24.0",
  "hashbrown 0.11.2",
@@ -1698,7 +1711,7 @@ dependencies = [
  "arrayvec",
  "custom_error",
  "driverkit",
- "env_logger 0.8.3",
+ "env_logger 0.9.0",
  "log",
  "smoltcp",
  "static_assertions",

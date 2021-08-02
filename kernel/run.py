@@ -381,7 +381,7 @@ def run_qemu(args):
                               "{},sockets=1".format(args.qemu_cores)]
 
     if args.qemu_memory:
-        qemu_default_args += ['-m', str(args.qemu_memory) + ',slots=2,maxmem=128G']
+        qemu_default_args += ['-m', str(args.qemu_memory) + ',slots=12,maxmem=2048G']
     if args.pvrdma:
         # ip link add bridge1 type bridge ; ifconfig bridge1 up
         qemu_default_args += ['-netdev', 'bridge,id=bridge1',
@@ -398,9 +398,11 @@ def run_qemu(args):
     qemu_default_args += ['-name', 'nrk,debug-threads=on']
 
     # NVDIMM related arguments
-    qemu_default_args += ['-M', 'nvdimm=on']
-    qemu_default_args += ['-object', 'memory-backend-file,id=mem1,share=on,mem-path=/dev/pmem0,size=4G']
+    qemu_default_args += ['-M', 'nvdimm=on,nvdimm-persistence=cpu']
+    qemu_default_args += ['-object', 'memory-backend-file,id=mem1,share=on,mem-path=/mnt/node0,size=799063146496,pmem=on,host-nodes=0,policy=bind,share=on']
     qemu_default_args += ['-device', 'nvdimm,id=nvdimm1,memdev=mem1']
+    qemu_default_args += ['-object', 'memory-backend-file,id=mem2,share=on,mem-path=/mnt/node1,size=799063146496,pmem=on,host-nodes=1,policy=bind,share=on']
+    qemu_default_args += ['-device', 'nvdimm,id=nvdimm2,memdev=mem2']
 
     qemu_args = ['qemu-system-x86_64'] + qemu_default_args.copy()
     if args.qemu_settings:

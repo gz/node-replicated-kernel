@@ -399,10 +399,10 @@ def run_qemu(args):
 
     # NVDIMM related arguments
     qemu_default_args += ['-M', 'nvdimm=on,nvdimm-persistence=cpu']
-    qemu_default_args += ['-object', 'memory-backend-file,id=mem1,share=on,mem-path=/mnt/node0,size=799063146496,pmem=on,host-nodes=0,policy=bind,share=on']
-    qemu_default_args += ['-device', 'nvdimm,id=nvdimm1,memdev=mem1']
-    qemu_default_args += ['-object', 'memory-backend-file,id=mem2,share=on,mem-path=/mnt/node1,size=799063146496,pmem=on,host-nodes=1,policy=bind,share=on']
-    qemu_default_args += ['-device', 'nvdimm,id=nvdimm2,memdev=mem2']
+    qemu_default_args += ['-object', 'memory-backend-file,id=mem1,mem-path=/mnt/node0,size=799063146496,pmem=on,share=on']
+    qemu_default_args += ['-device', 'nvdimm,node=0,slot=0,id=nvdimm1,memdev=mem1']
+    qemu_default_args += ['-object', 'memory-backend-file,id=mem2,mem-path=/mnt/node1,size=799063146496,pmem=on,share=on']
+    qemu_default_args += ['-device', 'nvdimm,node=1,slot=1,id=nvdimm2,memdev=mem2']
 
     qemu_args = ['qemu-system-x86_64'] + qemu_default_args.copy()
     if args.qemu_settings:

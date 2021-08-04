@@ -116,7 +116,7 @@ dependencies = [
 [[package]]
 name = "atopology"
 version = "0.0.17"
-source = "git+https://github.com/gz/rust-topology.git?branch=pmem#a186f2f1c7a975ff9242faac5001fd46ae1707c2"
+source = "git+https://github.com/gz/rust-topology.git?branch=pmem#1df419f7c7516d1fdab17f8f884ef5efc711b7b4"
 dependencies = [
  "bitflags",
  "cstr_core",
@@ -125,6 +125,7 @@ dependencies = [
  "libacpica",
  "log",
  "procfs",
+ "uefi",
  "x86 0.40.0",
 ]
 

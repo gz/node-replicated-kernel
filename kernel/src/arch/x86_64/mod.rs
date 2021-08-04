@@ -441,7 +441,7 @@ fn identify_numa_affinity(
     annotated_regions: &mut ArrayVec<Frame, MAX_PHYSICAL_REGIONS>,
 ) {
     if atopology::MACHINE_TOPOLOGY.num_nodes() > 0 {
-        for orig_frame in memory_regions.iter() {
+        'outer: for orig_frame in memory_regions.iter() {
             for node in atopology::MACHINE_TOPOLOGY.nodes() {
                 // trying to find a NUMA memory affinity that contains the given `orig_frame`
                 for affinity_region in node.memory() {
@@ -454,6 +454,13 @@ fn identify_numa_affinity(
                                 trace!("Identified NUMA region for {:?}", annotated_frame);
                                 assert!(!annotated_regions.is_full());
                                 annotated_regions.push(annotated_frame);
+                                // If the full frame is covered by a region the exit the inner loops. There is an issue with
+                                // pmem regions, at least with qemu. It might be the qemu bug.
+                                if annotated_frame.base == orig_frame.base
+                                    && annotated_frame.end() == orig_frame.end()
+                                {
+                                    continue 'outer;
+                                }
                             }
                         }
                     }
@@ -708,6 +715,15 @@ fn _start(argc: isize, _argv: *const *const u8) -> isize {
             node_replication::MAX_REPLICAS_PER_LOG >= nodes,
             "We don't support as many replicas as we have NUMA nodes."
         );
+    }
+
+    for region in &mut atopology::MACHINE_TOPOLOGY.persistent_memory() {
+        let base: PAddr = PAddr::from(region.phys_start);
+        let size: usize = region.page_count as usize * BASE_PAGE_SIZE;
+        let f = Frame::new(base, size, 0);
+
+        assert!(!memory_regions.is_full());
+        memory_regions.push(f);
     }
 
     // Identify NUMA region for physical memory (needs topology)

@@ -3,6 +3,7 @@ name = "nrk"
 version = "0.0.4"
 authors = [
   "Gerd Zellweger <mail@gerdzellweger.com>",
+  "Reto Achermann <achreto@cs.ubc.ca>",
 ]
 description = "Experimental OS kernel"
 readme = "README.md"
@@ -21,7 +22,6 @@ kpi = { path = "../lib/kpi" }
 rpc = { path = "../lib/rpc", optional = true }
 vmxnet3 = { path = "../lib/vmxnet3" }
 bootloader_shared = { path = "../lib/bootloader_shared" }
-x86 = { version = "0.51", features = ["unstable"] }
 klogger = "0.0.14"
 driverkit = "0.20"
 spin = "0.9.1"
@@ -56,6 +56,18 @@ addr2line = { version = "0.16", default-features = false, features = ["rustc-dem
 abomonation = { git="https://github.com/hunhoffe/abomonation.git", branch="no-std", default-features = false, optional = true }
 core2 = { version = "0.3", default-features = false, features = [ "alloc" ], optional = true }
 smoltcp = { version = "0.8.0", default-features = false, features = [ "alloc", "log", "proto-ipv4", "proto-igmp", "proto-dhcpv4", "socket-raw", "socket-icmp", "socket-udp", "socket-tcp" ], optional = true }
+
+
+# Arch Specific Dependencies for x86_64 Targets
+# -------------------------------------------------------------------------------------------------
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+x86 = { version = "0.51", features = ["unstable"] }
+
+
+# Arch Specific Dependencies for aarch64 Targets
+# -------------------------------------------------------------------------------------------------
+[target.'cfg(target_arch = "aarch64")'.dependencies]
+# aarch64 = { path = "lib/aarch64" }
 
 [[bin]]
 name = "nrk"

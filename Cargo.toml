@@ -14,6 +14,8 @@ members = [
     "lib/vibrio",
     "lib/vmxnet3",
     "lib/rpc",
+    #"lib/pl011_qemu",
+    #"lib/rust-klogger",
     "usr/init",
     "usr/rkapps",
     #"lib/libfringe",
@@ -22,7 +24,6 @@ members = [
     #"lib/rust-driverkit",
     #"lib/rust-x86",
     #"lib/rawtime",    
-    #"lib/rust-klogger",
     #"lib/rexpect",
 ]
 

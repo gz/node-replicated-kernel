@@ -57,6 +57,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "aligned"
+version = "0.3.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a785a543aea40f5e4e2e93bb2655d31bc21bb391fff65697150973e383f16bb"
+dependencies = [
+ "as-slice",
+]
+
+[[package]]
 name = "apic"
 version = "0.0.1"
 dependencies = [
@@ -71,6 +80,17 @@ dependencies = [
 [[package]]
 name = "armv8"
 version = "0.0.1"
+dependencies = [
+ "bit_field",
+]
+
+[[package]]
+name = "armv8"
+version = "0.0.1"
+source = "git+https://github.com/achreto/rust-armv8#68a03574c43a1f8191af47e29903e59f6c04779d"
+dependencies = [
+ "bit_field",
+]
 
 [[package]]
 name = "arr_macro"
@@ -100,6 +120,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8da52d66c7071e2e3fa2a1e5c6d088fec47b593032b254f5e980de8ea54454d6"
 
 [[package]]
+name = "as-slice"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45403b49e3954a4b8428a0ac21a4b7afadccf92bfd96273f1a58cd4812496ae0"
+dependencies = [
+ "generic-array 0.12.4",
+ "generic-array 0.13.3",
+ "generic-array 0.14.6",
+ "stable_deref_trait",
+]
+
+[[package]]
 name = "atomic-polyfill"
 version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -111,9 +143,9 @@ dependencies = [
 [[package]]
 name = "atopology"
 version = "0.0.32"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2b1be62f23a5c048ad6d06fd249b1c5c055edcde44dea473983ca0cf0cc99f5"
+source = "git+https://github.com/achreto/rust-topology#e5d843a967d9bfe1b53436ef917ef6b73294d0ee"
 dependencies = [
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
  "bitflags",
  "cstr_core",
  "env_logger 0.9.0",
@@ -169,6 +201,20 @@ dependencies = [
  "log",
  "stable_deref_trait",
  "x86 0.47.0",
+]
+
+[[package]]
+name = "backtracer_core"
+version = "0.0.5"
+source = "git+https://github.com/achreto/backtracer#5c9d3744980d8ba9a83e36b0496be52d00fa9c5a"
+dependencies = [
+ "addr2line 0.16.0",
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
+ "cfg-if 0.1.10",
+ "gimli 0.25.0",
+ "log",
+ "stable_deref_trait",
+ "x86 0.51.0",
 ]
 
 [[package]]
@@ -229,10 +275,10 @@ checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 name = "bootloader"
 version = "0.0.1"
 dependencies = [
- "armv8",
+ "armv8 0.0.1",
  "arrayvec",
  "bootloader_shared",
- "elfloader",
+ "elfloader 0.16.0",
  "log",
  "uefi",
  "uefi-services",
@@ -243,7 +289,7 @@ dependencies = [
 name = "bootloader_shared"
 version = "0.0.1"
 dependencies = [
- "armv8",
+ "armv8 0.0.1",
  "arrayvec",
  "uefi",
  "x86 0.51.0",
@@ -319,6 +365,19 @@ dependencies = [
 
 [[package]]
 name = "cortex-m"
+version = "0.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9075300b07c6a56263b9b582c214d0ff037b00d45ec9fde1cc711490c56f1bb9"
+dependencies = [
+ "aligned",
+ "bare-metal 0.2.5",
+ "bitfield",
+ "cortex-m 0.7.5",
+ "volatile-register",
+]
+
+[[package]]
+name = "cortex-m"
 version = "0.7.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd20d4ac4aa86f4f75f239d59e542ef67de87cce2c282818dc6e84155d3ea126"
@@ -337,7 +396,7 @@ checksum = "95da181745b56d4bd339530ec393508910c909c784e8962d15d722bacf0bcbcd"
 dependencies = [
  "bare-metal 1.0.0",
  "cfg-if 1.0.0",
- "cortex-m",
+ "cortex-m 0.7.5",
  "riscv",
 ]
 
@@ -429,9 +488,9 @@ dependencies = [
 [[package]]
 name = "driverkit"
 version = "0.20.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "895ac8cb7cc48d3bef1500560aaf48ea089b66858f16b99443e48a6acb571156"
+source = "git+https://github.com/gz/rust-driverkit?branch=dev/aarch64#66ddeba3b9109811569601babeefadd87410c540"
 dependencies = [
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
  "bit_field",
  "byteorder",
  "custom_error",
@@ -456,6 +515,17 @@ name = "elfloader"
 version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a249d6a9d50f3bf5a3cb7bfd75e84989cad89c6c77b5996c8b084e844146ff04"
+dependencies = [
+ "bitflags",
+ "log",
+ "xmas-elf",
+]
+
+[[package]]
+name = "elfloader"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a7b18d35bf8ec3bac59c3ec29cf1f1b46e764e00b42a9c0c754d06e38e78f3b"
 dependencies = [
  "bitflags",
  "log",
@@ -603,6 +673,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "generic-array"
+version = "0.12.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ffdf9f34f1447443d37393cc6c2b8313aebddcd96906caf34e54c68d8e57d7bd"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "generic-array"
+version = "0.13.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f797e67af32588215eaaab8327027ee8e71b9dd0b2b26996aedf20c030fce309"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
+name = "generic-array"
+version = "0.14.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bff49e947297f3312447abdca79f45f4738097cc82b06e72054d2223f601f1b9"
+dependencies = [
+ "typenum",
+ "version_check",
+]
+
+[[package]]
 name = "getrandom"
 version = "0.1.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -746,7 +844,7 @@ dependencies = [
  "log",
  "num-traits",
  "proptest 1.0.0 (git+https://github.com/gz/proptest.git?branch=x86-asm)",
- "rawtime",
+ "rawtime 0.0.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "spin 0.5.2",
  "vibrio",
  "x86 0.51.0",
@@ -785,12 +883,13 @@ dependencies = [
 
 [[package]]
 name = "klogger"
-version = "0.0.14"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aafc135627633685e7f45ec87e3f0646a8b3dad18ce166c79563e8fd440c5441"
+version = "0.0.15"
+source = "git+https://github.com/gz/rust-klogger?branch=aarch64#1818f343768dba6304196063714cf31198f68b9a"
 dependencies = [
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
  "heapless",
  "log",
+ "pl011_qemu",
  "spin 0.5.2",
  "termcodes",
  "x86 0.51.0",
@@ -801,6 +900,7 @@ name = "kpi"
 version = "0.1.0"
 dependencies = [
  "abomonation",
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
  "bit_field",
  "bitflags",
  "env_logger 0.9.0",
@@ -850,7 +950,7 @@ name = "lineup"
 version = "0.0.1"
 dependencies = [
  "arr_macro",
- "backtracer_core",
+ "backtracer_core 0.0.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "crossbeam-queue",
  "crossbeam-utils",
  "either",
@@ -859,7 +959,7 @@ dependencies = [
  "hashbrown 0.12.3",
  "kpi",
  "log",
- "rawtime",
+ "rawtime 0.0.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "spin 0.9.3",
  "x86 0.51.0",
 ]
@@ -1025,10 +1125,10 @@ dependencies = [
  "abomonation",
  "addr2line 0.16.0",
  "apic",
- "armv8",
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
  "arrayvec",
  "atopology",
- "backtracer_core",
+ "backtracer_core 0.0.5 (git+https://github.com/achreto/backtracer)",
  "bit_field",
  "bootloader_shared",
  "cc",
@@ -1041,7 +1141,7 @@ dependencies = [
  "ctor",
  "displaydoc",
  "driverkit",
- "elfloader",
+ "elfloader 0.14.0",
  "env_logger 0.9.0",
  "fallible_collections",
  "gdbstub",
@@ -1062,12 +1162,12 @@ dependencies = [
  "once_cell",
  "proptest 1.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.8.5",
- "rawtime",
+ "rawtime 0.0.9 (git+https://github.com/achreto/rust-rawtime)",
  "rexpect",
  "rpc",
  "serde",
  "serde_cbor",
- "slabmalloc",
+ "slabmalloc 0.10.0 (git+https://github.com/achreto/rust-slabmalloc)",
  "smoltcp 0.8.1",
  "spin 0.9.3",
  "static_assertions",
@@ -1239,6 +1339,17 @@ name = "pkg-config"
 version = "0.3.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1df8c4ec4b0627e53bdf214615ad287367e482558cf84b109250b37464dc03ae"
+
+[[package]]
+name = "pl011_qemu"
+version = "0.2.0"
+source = "git+https://github.com/gz/pl011_qemu.git#343afad11a04c2b4b404604dede97130bce412c4"
+dependencies = [
+ "cortex-m 0.6.7",
+ "embedded-hal",
+ "nb 1.0.0",
+ "volatile-register",
+]
 
 [[package]]
 name = "ppv-lite86"
@@ -1469,6 +1580,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "rawtime"
+version = "0.0.9"
+source = "git+https://github.com/achreto/rust-rawtime#2ab7d95832faa28faeda00cf1883c87bb5473d5d"
+dependencies = [
+ "armv8 0.0.1 (git+https://github.com/achreto/rust-armv8)",
+ "lazy_static",
+ "libc 0.2.126",
+ "log",
+ "x86 0.51.0",
+]
+
+[[package]]
 name = "rdrand"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1567,7 +1690,7 @@ dependencies = [
  "hashbrown 0.11.2",
  "lazy_static",
  "log",
- "rawtime",
+ "rawtime 0.0.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "smoltcp 0.8.1",
  "spin 0.9.3",
  "vmxnet3",
@@ -1706,6 +1829,14 @@ name = "slabmalloc"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47c3c80fc5058288346b67f19c9d57677bfabb4930386dcb9eeb23d14d1e10f0"
+dependencies = [
+ "log",
+]
+
+[[package]]
+name = "slabmalloc"
+version = "0.10.0"
+source = "git+https://github.com/achreto/rust-slabmalloc#908ae8e6bb08570a5082870a17a9fa7e74984968"
 dependencies = [
  "log",
 ]
@@ -1853,6 +1984,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "typenum"
+version = "1.15.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dcf81ac59edc17cc8697ff311e8f5ef2d99fcbd9817b34cec66f90b6c3dfd987"
+
+[[package]]
 name = "ucs2"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1926,10 +2063,10 @@ dependencies = [
  "lazy_static",
  "lineup",
  "log",
- "rawtime",
+ "rawtime 0.0.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "rumpkernel",
  "serde_cbor",
- "slabmalloc",
+ "slabmalloc 0.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "spin 0.9.3",
  "x86 0.51.0",
 ]

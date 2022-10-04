@@ -889,8 +889,8 @@ if __name__ == '__main__':
     # Build
     build_bootloader(args)
     build_kernel(args)
-    build_user_libraries(args)
-    build_userspace(args)
+    #build_user_libraries(args)
+    #build_userspace(args)
 
     # Deploy
     deploy(args)

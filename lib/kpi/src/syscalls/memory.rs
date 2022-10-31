@@ -136,6 +136,7 @@ impl PhysicalMemory {
     }
 
     pub fn allocate_large_page() -> Result<(FrameId, PAddr), SystemCallError> {
+        log::error!("huh");
         unimplemented!()
     }
 

@@ -10,7 +10,7 @@ use crate::*;
 
 use crate::syscall;
 
-use x86::bits64::paging::{PAddr, VAddr};
+use crate::arch::{PAddr, VAddr};
 
 /// System calls to manipulate the process' address-space.
 pub struct VSpace;
@@ -122,7 +122,7 @@ impl PhysicalMemory {
             let (err, frame_id, paddr) = syscall!(
                 SystemCall::Process as u64,
                 ProcessOperation::AllocatePhysical as u64,
-                x86::current::paging::BASE_PAGE_SIZE,
+                crate::arch::BASE_PAGE_SIZE,
                 3
             );
 

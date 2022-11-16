@@ -212,6 +212,9 @@ fn _start(argc: isize, _argv: *const *const u8) -> isize {
     //assert!(acpi::init().is_ok());
     // Initialize atopology crate and sanity check machine size
     crate::environment::init_topology();
+    timer::debug();
+    timer::set(timer::now() + 1_000);
+    timer::debug();
 
     // Identify NUMA region for physical memory (needs topology)
     let annotated_regions = identify_numa_affinity(memory_regions);

@@ -23,8 +23,9 @@ members = [
     #"lib/rust-topology",
     #"lib/rust-driverkit",
     #"lib/rust-x86",
-    #"lib/rawtime",    
+    #"lib/rawtime",
     #"lib/rexpect",
+    #"lib/armv8",
 ]
 
 # disable stack unwinding on panic for now
@@ -44,3 +45,4 @@ debug = true
 #klogger = { path = "lib/rust-klogger" }
 #libacpica = { path = "lib/acpica-sys" }
 #rexpect = { path = "lib/rexpect" }
+#armv8 = { path = "lib/armv8" }

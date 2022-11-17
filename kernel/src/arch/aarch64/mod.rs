@@ -32,6 +32,7 @@ use klogger::sprint;
 pub mod coreboot;
 pub mod debug;
 mod exceptions;
+mod irq;
 pub mod kcb;
 pub mod memory;
 pub mod process;
@@ -201,7 +202,8 @@ fn _start(argc: isize, _argv: *const *const u8) -> isize {
     core::mem::forget(arch);
 
     serial::init();
-    log::warn!("todo: initialize gic!\n"); //irq::init_apic();
+    log::warn!("todo: initialize gic!\n");
+    irq::debug_gic();
 
     #[cfg(all(
         feature = "integration-test",
@@ -212,9 +214,9 @@ fn _start(argc: isize, _argv: *const *const u8) -> isize {
     //assert!(acpi::init().is_ok());
     // Initialize atopology crate and sanity check machine size
     crate::environment::init_topology();
-    timer::debug();
-    timer::set(timer::now() + 1_000);
-    timer::debug();
+    //timer::debug();
+    timer::set(timer::now() + 1_000_000);
+    //timer::debug();
 
     // Identify NUMA region for physical memory (needs topology)
     let annotated_regions = identify_numa_affinity(memory_regions);

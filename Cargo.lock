@@ -706,6 +706,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "gic"
+version = "0.1.0"
+dependencies = [
+ "bit_field",
+ "driverkit",
+ "log",
+]
+
+[[package]]
 name = "gimli"
 version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1132,6 +1141,7 @@ dependencies = [
  "fallible_collections",
  "gdbstub",
  "gdbstub_arch",
+ "gic",
  "gimli 0.26.2",
  "hashbrown 0.11.2",
  "hwloc2",

@@ -203,6 +203,18 @@ fn _start(argc: isize, _argv: *const *const u8) -> isize {
 
     serial::init();
     log::warn!("todo: initialize gic!\n");
+    {
+        use crate::memory::vspace::MapAction;
+        use crate::memory::PAddr;
+        use crate::memory::KERNEL_BASE;
+        let mut vspace = vspace::INITIAL_VSPACE.lock();
+        vspace.map_identity_with_offset(
+            PAddr::from(KERNEL_BASE),
+            PAddr::from(0x800_0000usize),
+            64 * 4096,
+            MapAction::ReadWriteKernel,
+        );
+    }
     irq::debug_gic();
 
     #[cfg(all(

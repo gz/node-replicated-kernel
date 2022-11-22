@@ -5,6 +5,7 @@ members = [
     "bootloader",
     "kernel",
     "lib/apic",
+    "lib/gic",
     "lib/bootloader_shared",
     "lib/kpi",
     "lib/lineup",

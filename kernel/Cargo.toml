@@ -69,6 +69,7 @@ apic = { path = "../lib/apic/" }
 armv8 = { git = "https://github.com/achreto/rust-armv8", features = ["unstable"] }
 cortex-a = "8.0.0"
 tock-registers = "0.8.x"
+gic = { path = "../lib/gic" }
 
 [[bin]]
 name = "nrk"

@@ -1,0 +1,9 @@
+[package]
+name = "gic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+driverkit = { git = "https://github.com/gz/rust-driverkit", branch = "dev/aarch64" }
+log = "0.4"
+bit_field = "0.10.0"

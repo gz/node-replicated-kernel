@@ -142,6 +142,19 @@ pub(super) fn debug_gic() {
         reg.get_raw(),
         reg.get_raw()
     );
+
+    let cbar = read_cbar();
+    log::info!("CBAR: {:#x}", cbar);
+    let gic = gic::distributor::Distributor::new(
+        super::memory::paddr_to_kernel_vaddr(cbar.into()).as_usize(),
+    );
+    gic.init();
+}
+
+fn read_cbar() -> u64 {
+    let r;
+    unsafe { asm!("mrs {}, s3_1_c15_c3_0", out(reg) r, options(nomem, nostack, preserves_flags)) };
+    r
 }
 
 pub(crate) fn enable() {
